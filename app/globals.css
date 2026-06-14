@@ -55,7 +55,7 @@ body {
 }
 
 .section-shell {
-  width: min(1200px, calc(100% - 40px));
+  width: min(1200px, calc(100% - 32px));
   margin: 0 auto;
 }
 
@@ -122,5 +122,21 @@ body {
   }
   html {
     scroll-behavior: auto;
+  }
+}
+
+@media (min-width: 640px) {
+  .section-shell {
+    width: min(1200px, calc(100% - 40px));
+  }
+}
+
+@media (max-width: 420px) {
+  .eyebrow {
+    font-size: 0.64rem;
+    letter-spacing: 0.18em;
+  }
+  .eyebrow::before {
+    width: 1.15rem;
   }
 }

@@ -1,35 +1,35 @@
 import Image from "next/image";
 
 const competencies = [
-  "BIM: Revit, Navisworks",
-  "4D Simulation & Scheduling",
-  "Construction Documents",
-  "MEP Coordination",
-  "Building Code & Accessibility Design",
-  "Conceptual Design",
-  "AutoCAD Drafting",
-  "Design Development",
+  "Revit modeling & Navisworks coordination",
+  "Clash detection & MEP/structural integration",
+  "Construction & permit drawing sets",
+  "Building envelope & wall-assembly detailing",
+  "Ontario Building Code & barrier-free design",
+  "Zoning, area & GFA analysis",
+  "AutoCAD drafting & technical details",
+  "4D scheduling (Navisworks, MS Project)",
 ];
 
 const stats = [
-  ["10+", "Projects Completed"],
-  ["3+", "Years Experience"],
-  ["BIM", "Specialist"],
-  ["100%", "Code-Compliant Designs"],
+  ["10+", "Documented Projects"],
+  ["3+", "Years in Practice"],
+  ["Revit", "BIM Workflow"],
+  ["OBC", "Code-Compliant"],
 ];
 
 export default function About() {
   return (
-    <section id="about" className="relative py-24 sm:py-32">
+    <section id="about" className="relative py-20 sm:py-32">
       <div className="section-shell">
-        <div className="grid gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+        <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
           <div className="lg:sticky lg:top-28">
-            <p className="eyebrow">About Me</p>
-            <h2 className="mt-5 text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-              Technical precision for buildable design.
+            <p className="eyebrow">Profile</p>
+            <h2 className="mt-5 text-3xl font-semibold tracking-tight text-white sm:text-5xl">
+              Practical design thinking backed by technical control.
             </h2>
 
-            <div className="card-surface mt-9 rounded-xl border border-emerald-500/15 p-5">
+            <div className="card-surface mt-8 rounded-xl border border-emerald-500/15 p-4 sm:p-5">
               {/* Replace this image path if Fazal's profile photo file changes. */}
               <div className="relative aspect-[4/5] overflow-hidden rounded-lg border border-emerald-500/15 bg-[#0d1310]">
                 <Image
@@ -46,31 +46,32 @@ export default function About() {
                 {/* Change name and titles here. */}
                 <h3 className="text-2xl font-semibold text-white">Fazal</h3>
                 <p className="mt-1.5 text-emerald-400">Architectural Technologist</p>
-                <p className="mt-1 text-sm text-[#8b958e]">BIM Specialist &amp; Design Professional</p>
+                <p className="mt-1 text-sm text-[#8b958e]">
+                  BIM Coordination &amp; Documentation Specialist
+                </p>
               </div>
             </div>
           </div>
 
           <div>
-            <div className="border-l-2 border-emerald-400/40 pl-6">
-              <h3 className="text-xl font-semibold text-white">Professional Profile</h3>
+            <div className="border-l-2 border-emerald-400/40 pl-5 sm:pl-6">
+              <h3 className="text-xl font-semibold text-white">Professional Summary</h3>
               <p className="mt-5 leading-8 text-[#a8b2ab]">
-                I am a meticulous Architectural Technologist specializing in Building Information Modeling
-                (BIM) and advanced construction documentation. My expertise lies in leveraging
-                industry-standard tools like Autodesk Revit, Navisworks, AutoCAD, and MS Project to deliver
-                efficient, accurate, and innovative solutions for commercial, multi-use, and residential
-                projects.
+                Architectural Technologist specializing in BIM production and construction documentation.
+                I work in Autodesk Revit, Navisworks, AutoCAD, and MS Project to deliver coordinated
+                models and complete drawing sets for commercial, multi-level, and healthcare projects,
+                covering everything from site and area plans to elevations, building sections, and wall
+                details.
               </p>
               <p className="mt-5 leading-8 text-[#a8b2ab]">
-                I excel at cross-trade coordination including MEP, Structural, and Architectural systems,
-                while ensuring compliance with building codes and accessibility standards. My passion for
-                precision and innovation drives me to create buildable, sustainable designs that bridge the
-                gap between architectural vision and construction reality.
+                My strength is cross-discipline coordination across architectural, structural, and MEP
+                systems, backed by Ontario Building Code compliance, barrier-free design, and the envelope
+                detailing that turns a concept into a buildable, permit-ready project.
               </p>
             </div>
 
-            <div className="mt-12">
-              <h3 className="text-xl font-semibold text-white">Core Competencies</h3>
+            <div className="mt-10 sm:mt-12">
+              <h3 className="text-xl font-semibold text-white">Technical Strengths</h3>
               <div className="mt-6 grid gap-2.5 sm:grid-cols-2">
                 {competencies.map((item) => (
                   <div
@@ -86,7 +87,7 @@ export default function About() {
               </div>
             </div>
 
-            <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <div className="mt-10 grid grid-cols-1 gap-3 min-[420px]:grid-cols-2 sm:mt-12 sm:grid-cols-4">
               {stats.map(([value, label]) => (
                 <div
                   key={label}

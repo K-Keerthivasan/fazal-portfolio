@@ -1,4 +1,6 @@
-const footerStats = ["10+ Projects", "3+ Years", "BIM Specialist"];
+import { LinkedInIcon } from "./Icons";
+
+const footerStats = ["10+ Projects", "3+ Years", "BIM Focused"];
 
 export default function Footer() {
   return (
@@ -13,9 +15,12 @@ export default function Footer() {
               {/* Change footer name/title here. */}
               <h2 className="text-xl font-semibold text-white">Fazal</h2>
             </div>
-            <p className="mt-3 text-sm text-[#8b958e]">Architectural Technologist &amp; BIM Specialist</p>
+            <p className="mt-3 text-sm text-[#8b958e]">
+              Architectural Technologist &amp; BIM Coordination Specialist
+            </p>
             <p className="mt-5 max-w-xl text-sm leading-6 text-[#6b756f]">
-              Ready to transform architectural visions into reality through advanced BIM technology.
+              Translating design intent into coordinated models, precise drawings, and buildable project
+              documentation.
             </p>
           </div>
           <div className="flex flex-wrap gap-2.5">
@@ -27,10 +32,19 @@ export default function Footer() {
                 {stat}
               </span>
             ))}
+            <a
+              href="https://www.linkedin.com/in/abulfazal2001/"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 px-4 py-1.5 font-mono text-xs text-emerald-300 transition hover:border-emerald-400/60 hover:bg-emerald-500/10"
+            >
+              <LinkedInIcon className="size-3.5" />
+              LinkedIn
+            </a>
           </div>
         </div>
         <div className="mt-12 border-t border-emerald-500/10 pt-6 text-sm text-[#6b756f]">
-          © 2026 Fazal Portfolio. Designed with precision, built with passion.
+          &copy; 2026 Fazal Portfolio. Designed with precision, built with purpose.
         </div>
       </div>
     </footer>

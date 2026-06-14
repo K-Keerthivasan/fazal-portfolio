@@ -1,13 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import dynamic from "next/dynamic";
-
-// Loaded client-side only: pdf.js relies on browser APIs that are unavailable during SSR.
-const PdfViewer = dynamic(() => import("./PdfViewer"), { ssr: false });
+import type { ComponentType } from "react";
+import { useState } from "react";
 
 // A document attached to a project. `file` is the exact filename inside public/projects/
-// (kept as uploaded — spaces and parentheses are encoded automatically when opened).
+// (kept as uploaded; spaces and parentheses are encoded automatically when opened).
 type ProjectDoc = { label: string; file: string };
 
 type Project = {
@@ -23,108 +20,115 @@ type Project = {
 
 const projects: Project[] = [
   {
-    category: "BIM & 4D Simulation",
-    title: "The Hive: 4D BIM Project",
+    category: "Multi-Level Building Design",
+    title: "The Exbrit",
     description:
-      "Advanced virtual design and construction capstone demonstrating 4D BIM capabilities with integrated time and scheduling coordination using Navisworks and MS Project.",
+      "A seven-storey building modelled in Revit and developed into a full design set. It covers the sheet list, area plans for every level, site planning, and detailed interior and exterior renderings.",
     button: "View Documentation",
-    tags: ["BIM", "4D"],
+    tags: ["Revit", "Design Dev"],
     docs: [{ label: "View Documentation", file: "Final Design File 26S_AFNM (1).pdf" }],
   },
-  {
-    category: "Multi-Use High-Rise",
-    title: "The Urban Rise",
+    {
+    category: "Architectural Design",
+    title: "The Eden Project",
     description:
-      "Comprehensive documentation for an 8-level mixed-use building integrating commercial ground floor spaces, residential units, life safety systems, and detailed construction assemblies.",
-    button: "View Plans",
-    tags: ["Mixed-Use", "8-Level"],
+      "An architectural design package for 555 McCormick Street. It pairs exterior perspectives with a coordinated set of plans, elevations, and sections, all worked through against Ontario Building Code requirements.",
+    button: "View Design",
+    tags: ["Design Dev", "Visualization"],
     docs: [
-      { label: "Sheet Set R01", file: "2401-RO1-1156DUNDASSTREET-LONDON-PROJECT03-AN.pdf" },
-      { label: "Sheet Set R09", file: "2401-RO9-1156DUNDASSTREET-LONDON-PROJECT03-AN.pdf" },
+      { label: "Design Final", file: "ARCH-5009 - EDEN PROJECT 25S DESIGN FINAL 27-06-25 - AFNM (3).pdf" },
+      { label: "Summary Set", file: "ARCH-5009 - EDEN PROJECT 25S - AFNM - FINAL (1) (1).pdf" },
     ],
   },
+
   {
-    category: "Commercial Retail",
-    title: "Evergreen Market",
+    category: "Commercial Renovation",
+    title: "Rickety Development",
     description:
-      "Detailed commercial project featuring foundation, roof, and wall section details with a focus on design integration and construction feasibility.",
-    button: "View Details",
-    tags: ["Commercial", "Retail"],
+      "A commercial building worked up to the 2024 Ontario Building Code in two stages, a design package and a construction package. Both include general notes, project scope, and the detailing needed for permit and contractor review.",
+    button: "View Drawings",
+    tags: ["OBC 2024", "Commercial"],
     docs: [
       { label: "Design Final", file: "A3016 AFNM 25W DESIGN FINAL.pdf" },
       { label: "Project Final", file: "A3016 AFNM 25W PROJECT-FINAL-15-04-25 (1).pdf" },
     ],
   },
-  {
-    category: "Systems Integration",
-    title: "BIM/MEP Capstone",
+
+    {
+    category: "BIM Coordination",
+    title: "Commercial Capstone",
     description:
-      "Advanced multi-trade coordination project demonstrating Mechanical, Electrical, Plumbing, and Structural systems integration within a commercial building model.",
-    button: "View Systems",
-    tags: ["MEP", "BIM"],
-    docs: [{ label: "View Systems", file: "Capstone Commerical (1).pdf" }],
+      "A commercial capstone built around the foundation and structural grid. It includes footing layouts with top and bottom of footing elevations, floor-drain coordination, and dimensioned plans put together in one coordinated model.",
+    button: "View Drawings",
+    tags: ["BIM", "Foundations"],
+    docs: [{ label: "View Drawings", file: "Capstone Commerical (1).pdf" }],
   },
-  {
-    category: "Residential Development",
-    title: "The Ridgeway Townhouse",
+
+    {
+    category: "Concept & Schematic",
+    title: "Schematic Design Study",
     description:
-      "Multi-unit residential development featuring detailed block plans, unit layouts, and construction schedules including doors, windows, and room specifications.",
+      "An early concept study that works through massing, plan layouts, and rough drawings. It shows how an idea gets tested and tightened up into a workable design direction.",
+    button: "View Study",
+    tags: ["Concept", "Schematic"],
+    docs: [{ label: "View Study", file: "doodle updated.pdf" }],
+  },
+
+  {
+    category: "Commercial Building",
+    title: "1156 Dundas Street",
+    description:
+      "A two-storey commercial building in London, Ontario, drawn up as a complete construction set. It includes site and floor plans, isometrics, and elevations, along with wall assemblies for steel-stud, masonry, curtain-wall, and CMU construction.",
     button: "View Plans",
-    tags: ["Residential", "Multi-Unit"],
+    tags: ["Construction Docs", "Envelope"],
     docs: [
-      { label: "Design Final", file: "ARCH-5009 - EDEN PROJECT 25S DESIGN FINAL 27-06-25 - AFNM (3).pdf" },
-      { label: "Summary", file: "ARCH-5009 - EDEN PROJECT 25S - AFNM - FINAL (1) (1).pdf" },
+      { label: "Drawing Set", file: "2401-RO1-1156DUNDASSTREET-LONDON-PROJECT03-AN.pdf" },
+      { label: "Wall Sections & Details", file: "2401-RO9-1156DUNDASSTREET-LONDON-PROJECT03-AN.pdf" },
     ],
   },
-  {
-    category: "Accessibility Compliance",
-    title: "Universal Toilet Room Design",
+
+    {
+    category: "Structural Documentation",
+    title: "Structural Framing & Loads",
     description:
-      "Specialized accessibility design showcasing compliance with barrier-free requirements through detailed Universal Toilet Room documentation.",
-    button: "View Design",
-    tags: ["Accessibility", "Code"],
-    docs: [{ label: "View Design", file: "UTR FINAL.pdf" }],
+      "A structural framing package tied to a full set of design loads. Column and beam grids are laid out alongside snow, dead, live, and uplift loads calculated to Part 4 of the Ontario Building Code.",
+    button: "View Drawings",
+    tags: ["Structural", "OBC Part 4"],
+    docs: [{ label: "View Drawings", file: "STRUCTURAL ASSIGNMENT - FINAL.pdf" }],
   },
-  {
-    category: "Conceptual Design",
-    title: "Community Center Pavilion",
-    description:
-      "Architectural concept featuring render, floor plans, elevations, and sections for a community pavilion, demonstrating early-stage design and visualization skills.",
-    button: "View Concept",
-    tags: ["Concept", "Design"],
-    docs: [{ label: "View Concept", file: "Assignment 02 - 18-04-25 (2).pdf" }],
-  },
-  {
-    category: "Hand Sketch",
-    title: "Rebel Remedy Hand Sketch",
-    description:
-      "Detailed hand-drawn elevation for a commercial renovation project, showcasing freehand sketching and architectural visualization expertise.",
-    button: "View Sketch",
-    tags: ["Hand Sketch", "Elevation"],
-    docs: [{ label: "View Sketch", file: "doodle updated.pdf" }],
-  },
-  {
-    category: "Commercial Development",
-    title: "Commercial Building Project",
-    description:
-      "Comprehensive commercial building design showcasing structural and architectural coordination with detailed construction documentation.",
-    button: "View Project",
-    tags: ["Commercial", "Structural"],
-    docs: [
-      { label: "Structural", file: "STRUCTURAL ASSIGNMENT - FINAL.pdf" },
-      { label: "Materials", file: "MATS-3010 - Assignment 1_04-04-25.pdf" },
-    ],
-  },
+
   {
     category: "Healthcare & Wellness",
-    title: "Wellness Center Design",
+    title: "Oxford Wellness Centre",
     description:
-      "Specialized wellness facility design focusing on therapeutic environments, accessibility features, and health-centered architectural solutions.",
+      "A wellness centre at 1080 Oxford Street, London, taken from zoning analysis through to working drawings. It includes lot coverage and GFA calculations, site and roof plans, elevations, a building section, and CMU wall sections and details.",
     button: "View Design",
-    tags: ["Wellness", "Healthcare"],
+    tags: ["Zoning", "CMU"],
     docs: [
       { label: "Design", file: "Design-Arch-1030 - CMU Wellness Centre.pdf" },
       { label: "Working Drawings", file: "WD - Arch-1030 - CMU Wellness Centre.pdf" },
+    ],
+  },
+  {
+    category: "Barrier-Free Design",
+    title: "Universal Toilet Room",
+    description:
+      "A barrier-free washroom detailed to Section 3.8 of the Ontario Building Code. It dimensions the clear transfer space, a 1700 mm turning circle, fixture and grab-bar clearances, and the accessible controls.",
+    button: "View Design",
+    tags: ["Accessibility", "OBC 3.8"],
+    docs: [{ label: "View Design", file: "UTR FINAL.pdf" }],
+  },
+
+  {
+    category: "Technical Detailing",
+    title: "Building Science & Detailing",
+    description:
+      "Two building-science studies focused on the envelope: a foundation-to-wall assembly and an annotated material section. Together they cover waterproofing, drainage, air and vapour barriers, insulation, and framing, referenced to Part 9 of the Ontario Building Code.",
+    button: "View Details",
+    tags: ["Envelope", "Details"],
+    docs: [
+      { label: "Wall & Foundation Detail", file: "Assignment 02 - 18-04-25 (2).pdf" },
+      { label: "Material Assemblies", file: "MATS-3010 - Assignment 1_04-04-25.pdf" },
     ],
   },
 ];
@@ -135,48 +139,44 @@ function docUrl(file: string) {
 
 export default function Projects() {
   const [activePdf, setActivePdf] = useState<{ file: string; title: string } | null>(null);
+  const [PdfViewer, setPdfViewer] = useState<ComponentType<{
+    file: string;
+    title: string;
+    onClose: () => void;
+  }> | null>(null);
 
-  // Preload the viewer bundle on idle so the first click opens with no download latency.
-  useEffect(() => {
-    const preload = () => import("./PdfViewer");
-    type IdleWindow = Window & { requestIdleCallback?: (cb: () => void) => number };
-    const w = window as IdleWindow;
-    if (w.requestIdleCallback) {
-      w.requestIdleCallback(preload);
-    } else {
-      const t = setTimeout(preload, 1500);
-      return () => clearTimeout(t);
+  async function open(project: Project, doc: ProjectDoc) {
+    const title = project.docs && project.docs.length > 1 ? `${project.title} - ${doc.label}` : project.title;
+    if (!PdfViewer) {
+      const mod = await import("./PdfViewer");
+      setPdfViewer(() => mod.default);
     }
-  }, []);
-
-  function open(project: Project, doc: ProjectDoc) {
-    const title = project.docs && project.docs.length > 1 ? `${project.title} · ${doc.label}` : project.title;
     setActivePdf({ file: docUrl(doc.file), title });
   }
 
   return (
-    <section id="projects" className="relative border-y border-emerald-500/10 bg-[#0a0e0c] py-24 sm:py-32">
+    <section id="projects" className="relative border-y border-emerald-500/10 bg-[#0a0e0c] py-20 sm:py-32">
       <div className="section-shell">
         <div className="max-w-3xl">
           <p className="eyebrow">Selected Work</p>
-          <h2 className="mt-5 text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-            Project Portfolio
+          <h2 className="mt-5 text-3xl font-semibold tracking-tight text-white sm:text-5xl">
+            Documentation, BIM, and coordination work.
           </h2>
-          <p className="mt-6 text-lg leading-8 text-[#a8b2ab]">
-            A comprehensive showcase of architectural projects spanning from conceptual design to detailed
-            construction documentation, demonstrating expertise in BIM, MEP coordination, and code
-            compliance.
+          <p className="mt-6 text-base leading-7 text-[#a8b2ab] sm:text-lg sm:leading-8">
+            A mix of Revit models, full construction drawing sets, envelope details, and code-compliant
+            design work, spanning commercial, multi-level, healthcare, structural, and accessibility
+            projects. Open any project to page through the drawings.
           </p>
         </div>
 
         {/* Update project details and attach PDFs in the `projects` array above. */}
-        <div className="mt-14 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {projects.map((project, index) => {
             const docs = project.docs ?? [];
             return (
               <article
                 key={project.title}
-                className="card-surface group flex min-h-[380px] flex-col rounded-xl border border-emerald-500/12 p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-emerald-400/50 hover:shadow-[0_20px_60px_-15px_rgba(16,185,129,0.25)]"
+                className="card-surface group flex min-h-[350px] flex-col rounded-xl border border-emerald-500/12 p-5 transition-all duration-300 hover:-translate-y-1.5 hover:border-emerald-400/50 hover:shadow-[0_20px_60px_-15px_rgba(16,185,129,0.25)] sm:min-h-[380px] sm:p-6"
               >
                 <div className="architectural-grid relative mb-6 flex h-28 items-end justify-between rounded-lg border border-emerald-500/12 bg-[#060807] p-4 transition-colors group-hover:border-emerald-400/30">
                   {docs.length > 0 && (
@@ -212,7 +212,7 @@ export default function Projects() {
                     className="mt-6 inline-flex items-center text-sm font-medium text-emerald-300 transition-colors group-hover:text-emerald-200"
                   >
                     {project.button}
-                    <span className="ml-2 transition-transform group-hover:translate-x-1">→</span>
+                    <span className="ml-2 transition-transform group-hover:translate-x-1">&rarr;</span>
                   </a>
                 ) : docs.length === 1 ? (
                   <button
@@ -221,7 +221,7 @@ export default function Projects() {
                     className="mt-6 inline-flex items-center self-start text-sm font-medium text-emerald-300 transition-colors hover:text-emerald-200"
                   >
                     {docs[0].label}
-                    <span className="ml-2 transition-transform group-hover:translate-x-1">→</span>
+                    <span className="ml-2 transition-transform group-hover:translate-x-1">&rarr;</span>
                   </button>
                 ) : (
                   <div className="mt-6">
@@ -247,21 +247,21 @@ export default function Projects() {
           })}
         </div>
 
-        <div className="card-surface mt-14 flex flex-col items-center gap-6 rounded-xl border border-emerald-500/15 p-8 text-center sm:p-10">
-          <p className="text-xl font-semibold text-white">
-            Interested in seeing more details about any of these projects?
+        <div className="card-surface mt-14 flex flex-col items-center gap-6 rounded-xl border border-emerald-500/15 p-6 text-center sm:p-10">
+          <p className="text-lg font-semibold text-white sm:text-xl">
+            Need a closer look at a drawing set or BIM workflow?
           </p>
           <a
             href="#contact"
             className="soft-glow inline-flex items-center gap-2 rounded-md bg-emerald-500 px-7 py-3.5 text-sm font-semibold text-[#04140c] transition-all hover:bg-emerald-400"
           >
-            Let&apos;s Discuss Your Project
-            <span>→</span>
+            Start a Project Conversation
+            <span>&rarr;</span>
           </a>
         </div>
       </div>
 
-      {activePdf && (
+      {activePdf && PdfViewer && (
         <PdfViewer file={activePdf.file} title={activePdf.title} onClose={() => setActivePdf(null)} />
       )}
     </section>

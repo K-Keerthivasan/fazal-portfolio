@@ -1,6 +1,16 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
+import type { ComponentType } from "react";
+import {
+  ArrowIcon,
+  BriefcaseIcon,
+  DocumentIcon,
+  LinkedInIcon,
+  LocationIcon,
+  MailIcon,
+  PhoneIcon,
+} from "./Icons";
 
 declare global {
   interface Window {
@@ -11,10 +21,10 @@ declare global {
 }
 
 const services = [
-  ["BIM Modeling", "Revit, Navisworks, 4D Simulation"],
-  ["Design Development", "Concept through Construction"],
-  ["MEP Coordination", "Multi-trade Integration"],
-  ["Code Compliance", "Building Code & Accessibility Standards"],
+  ["BIM Production", "Revit modeling, Navisworks review, and 4D coordination"],
+  ["Technical Documentation", "Design development through construction-ready drawings"],
+  ["Trade Coordination", "Architectural, structural, and MEP model integration"],
+  ["Code Review Support", "Building code and accessibility-focused documentation"],
 ];
 
 type Status = "idle" | "loading" | "success" | "error";
@@ -68,43 +78,73 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="relative py-24 sm:py-32">
+    <section id="contact" className="relative py-20 sm:py-32">
       <div className="green-ambience absolute inset-0 opacity-60" />
       <div className="section-shell relative">
-        <div className="grid gap-14 lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
             <p className="eyebrow">Contact</p>
-            <h2 className="mt-5 text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-              Let&apos;s Create Something Extraordinary
+            <h2 className="mt-5 text-3xl font-semibold tracking-tight text-white sm:text-5xl">
+              Let&apos;s talk about the next set of drawings.
             </h2>
-            <p className="mt-6 text-lg leading-8 text-[#a8b2ab]">
-              Ready to bring your architectural vision to life? I&apos;m passionate about collaborating
-              on projects that push the boundaries of design and construction technology.
+            <p className="mt-6 text-base leading-7 text-[#a8b2ab] sm:text-lg sm:leading-8">
+              Whether the need is BIM support, technical documentation, coordination, or a full-time
+              opportunity, I am available to discuss how I can contribute to a clear and buildable outcome.
             </p>
 
-            <div className="mt-10 grid gap-3">
-              <ContactCard title="Email" text="Let's discuss your project" value="fazal@example.com" href="mailto:fazal@example.com" />
-              <ContactCard title="Phone" text="Available for consultations" value="+1 (000) 000-0000" href="tel:+10000000000" />
-              <ContactCard title="Location" text="Based in Ontario" value="Ontario, Canada" />
-              {/* Change email, phone, and location placeholders above. */}
+            <div className="mt-9 grid gap-3">
+              <ContactCard
+                icon={MailIcon}
+                title="Email"
+                text="Send project details or opportunities"
+                value="abul.fazalca@gmail.com"
+                href="mailto:abul.fazalca@gmail.com"
+              />
+              <ContactCard
+                icon={PhoneIcon}
+                title="Phone"
+                text="Available for project discussions"
+                value="+1 (226) 236-8670"
+                href="tel:+12262368670"
+              />
+              <ContactCard
+                icon={LinkedInIcon}
+                title="LinkedIn"
+                text="Connect professionally"
+                value="linkedin.com/in/abulfazal2001"
+                href="https://www.linkedin.com/in/abulfazal2001/"
+              />
+              <ContactCard
+                icon={LocationIcon}
+                title="Location"
+                text="Working from Ontario"
+                value="Ontario, Canada"
+              />
+              {/* Change email, phone, LinkedIn, and location placeholders above. */}
             </div>
 
-            <div className="card-surface mt-10 rounded-xl border border-emerald-500/15 p-6">
+            <div className="card-surface mt-10 rounded-xl border border-emerald-500/15 p-5 sm:p-6">
               <p className="text-base font-semibold text-white">
-                Available for full-time opportunities, contract work, and consultations.
+                Available for full-time roles, contract BIM support, documentation work, and technical
+                coordination.
               </p>
               <div className="mt-6 grid gap-5 sm:grid-cols-2">
                 {services.map(([title, text]) => (
-                  <div key={title} className="border-l-2 border-emerald-400/40 pl-4">
-                    <h3 className="text-sm font-semibold text-emerald-200">{title}</h3>
-                    <p className="mt-1 text-sm text-[#8b958e]">{text}</p>
+                  <div key={title} className="flex gap-3">
+                    <span className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-md border border-emerald-500/20 bg-emerald-500/8 text-emerald-300">
+                      <BriefcaseIcon className="size-4" />
+                    </span>
+                    <div>
+                      <h3 className="text-sm font-semibold text-emerald-200">{title}</h3>
+                      <p className="mt-1 text-sm text-[#8b958e]">{text}</p>
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="card-surface rounded-xl border border-emerald-500/15 p-6 sm:p-8">
+          <form onSubmit={handleSubmit} className="card-surface rounded-xl border border-emerald-500/15 p-5 sm:p-8">
             <div className="grid gap-5 sm:grid-cols-2">
               <Field label="Name" name="name" autoComplete="name" />
               <Field label="Email" name="email" type="email" autoComplete="email" />
@@ -120,7 +160,7 @@ export default function Contact() {
                 minLength={10}
                 rows={6}
                 className="mt-2 w-full resize-none rounded-lg border border-emerald-500/15 bg-[#060807] px-4 py-3 text-white outline-none transition-colors placeholder:text-[#5b6560] focus:border-emerald-400/70"
-                placeholder="Tell me about your project."
+                placeholder="Share the project scope, timeline, or opportunity."
               />
             </label>
 
@@ -139,7 +179,7 @@ export default function Contact() {
               disabled={status === "loading"}
               className="soft-glow mt-6 w-full rounded-md bg-emerald-500 px-7 py-3.5 text-sm font-semibold text-[#04140c] transition-all hover:bg-emerald-400 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {status === "loading" ? "Sending…" : "Send Message"}
+              {status === "loading" ? "Sending..." : "Send Message"}
             </button>
 
             {message && (
@@ -157,11 +197,22 @@ export default function Contact() {
             <div className="mt-10 border-t border-emerald-500/10 pt-8">
               <p className="eyebrow">Professional Resources</p>
               <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-                <a className="flex-1 rounded-md border border-emerald-500/25 px-5 py-3 text-center text-sm font-medium text-emerald-200 transition-all hover:border-emerald-400/60 hover:bg-emerald-500/10" href="#projects">
-                  View Portfolio
+                <a
+                  className="flex flex-1 items-center justify-center gap-2 rounded-md border border-emerald-500/25 px-5 py-3 text-center text-sm font-medium text-emerald-200 transition-all hover:border-emerald-400/60 hover:bg-emerald-500/10"
+                  href="#projects"
+                >
+                  <DocumentIcon className="size-4" />
+                  View Work
                 </a>
-                <a className="flex-1 rounded-md border border-emerald-500/25 px-5 py-3 text-center text-sm font-medium text-emerald-200 transition-all hover:border-emerald-400/60 hover:bg-emerald-500/10" href="#contact">
-                  Get In Touch
+                <a
+                  className="flex flex-1 items-center justify-center gap-2 rounded-md border border-emerald-500/25 px-5 py-3 text-center text-sm font-medium text-emerald-200 transition-all hover:border-emerald-400/60 hover:bg-emerald-500/10"
+                  href="https://www.linkedin.com/in/abulfazal2001/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <LinkedInIcon className="size-4" />
+                  LinkedIn
+                  <ArrowIcon className="size-3.5" />
                 </a>
               </div>
             </div>
@@ -199,32 +250,41 @@ function Field({
 }
 
 function ContactCard({
+  icon: Icon,
   title,
   text,
   value,
   href,
 }: {
+  icon: ComponentType<{ className?: string }>;
   title: string;
   text: string;
   value: string;
   href?: string;
 }) {
   const content = (
-    <>
-      <p className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-emerald-400">{title}</p>
-      <p className="mt-2 text-sm text-white">{text}</p>
-      <p className="mt-0.5 text-sm text-[#8b958e]">{value}</p>
-    </>
+    <div className="flex gap-4">
+      <span className="grid size-11 shrink-0 place-items-center rounded-lg border border-emerald-500/20 bg-emerald-500/8 text-emerald-300 transition-colors group-hover:border-emerald-400/50 group-hover:bg-emerald-500/12">
+        <Icon className="size-5" />
+      </span>
+      <span className="min-w-0">
+        <p className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-emerald-400">{title}</p>
+        <p className="mt-2 text-sm text-white">{text}</p>
+        <p className="mt-0.5 break-words text-sm text-[#8b958e]">{value}</p>
+      </span>
+    </div>
   );
 
   return href ? (
     <a
-      className="card-surface block rounded-lg border border-emerald-500/12 p-5 transition-all hover:-translate-y-0.5 hover:border-emerald-400/45"
+      className="card-surface group block rounded-lg border border-emerald-500/12 p-5 transition-all hover:-translate-y-0.5 hover:border-emerald-400/45"
       href={href}
+      target={href.startsWith("http") ? "_blank" : undefined}
+      rel={href.startsWith("http") ? "noreferrer" : undefined}
     >
       {content}
     </a>
   ) : (
-    <div className="card-surface rounded-lg border border-emerald-500/12 p-5">{content}</div>
+    <div className="card-surface group rounded-lg border border-emerald-500/12 p-5">{content}</div>
   );
 }
