@@ -7,7 +7,7 @@ type ContactPayload = {
   email?: unknown;
   subject?: unknown;
   message?: unknown;
-  "cf-turnstile-response"?: unknown;
+  "h-captcha-response"?: unknown;
 };
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     const email = normalize(payload.email);
     const subject = normalize(payload.subject);
     const message = normalize(payload.message);
-    const captchaToken = normalize(payload["cf-turnstile-response"]);
+    const captchaToken = normalize(payload["h-captcha-response"]);
 
     const validationError = validateFields({ name, email, subject, message });
     if (validationError) {
@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("Contact form error:", error);
     return NextResponse.json(
-      { message: "Unable to send your message right now. Please try again later." },
+      { message: getContactErrorMessage(error) },
       { status: 500 },
     );
   }
@@ -89,4 +89,28 @@ function validateFields(fields: {
   }
 
   return null;
+}
+
+function getContactErrorMessage(error: unknown) {
+  const message = error instanceof Error ? error.message : "";
+  const normalized = message.toLowerCase();
+
+  if (normalized.includes("resend is not configured")) {
+    return "Email sending is not configured. Add RESEND_API_KEY in your environment variables.";
+  }
+
+  if (
+    normalized.includes("own email address") ||
+    normalized.includes("testing emails") ||
+    normalized.includes("verify a domain") ||
+    normalized.includes("domain")
+  ) {
+    return "Resend is in test/domain-restricted mode. Set CONTACT_EMAIL to the email verified on your Resend account, or verify a sending domain and set RESEND_FROM_EMAIL.";
+  }
+
+  if (process.env.NODE_ENV !== "production" && message) {
+    return `Email service error: ${message}`;
+  }
+
+  return "Unable to send your message right now. Please try again later.";
 }

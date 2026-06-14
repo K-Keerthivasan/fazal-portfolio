@@ -2,9 +2,11 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // REQUIRED for react-pdf / pdfjs-dist. pdf.js lists `canvas` as an optional
+  // Node-only dependency. In the browser it must be stubbed out, otherwise
+  // webpack injects a broken module and the PDF viewer crashes at runtime with
+  // "Object.defineProperty called on non-object". Do not remove this.
   webpack: (config) => {
-    // pdf.js (used by react-pdf) lists `canvas` as an optional Node-only dependency.
-    // It is not needed in the browser, so stub it out to avoid build warnings/errors.
     config.resolve.alias = {
       ...config.resolve.alias,
       canvas: false,

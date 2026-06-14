@@ -4,7 +4,7 @@ type CaptchaResponse = {
 };
 
 export async function validateCaptcha(token: string, remoteIp?: string | null) {
-  const secret = process.env.CAPTCHA_SECRET_KEY;
+  const secret = process.env.HCAPTCHA_SECRET_KEY;
 
   if (!secret) {
     return {
@@ -29,7 +29,7 @@ export async function validateCaptcha(token: string, remoteIp?: string | null) {
     body.set("remoteip", remoteIp);
   }
 
-  const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+  const response = await fetch("https://hcaptcha.com/siteverify", {
     method: "POST",
     body,
   });

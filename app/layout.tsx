@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import ScrollReveal from "@/components/ScrollReveal";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -15,9 +16,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Fazal | Architectural Technologist & BIM Specialist",
+  title: "Abul Fazal | Architectural Technologist & BIM Specialist",
   description:
-    "Professional architecture and BIM portfolio for Fazal, showcasing technical documentation, coordination, and design development work.",
+    "Professional architecture and BIM portfolio for Abul Fazal, showcasing technical documentation, coordination, and design development work.",
 };
 
 export default function RootLayout({
@@ -27,7 +28,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <ScrollReveal />
+      </body>
     </html>
   );
 }

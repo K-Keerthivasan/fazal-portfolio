@@ -1,4 +1,4 @@
-# Fazal Architecture Portfolio
+# Abul Fazal Architecture Portfolio
 
 Premium one-page architecture and BIM specialist portfolio built with Next.js App Router, TypeScript, and Tailwind CSS.
 
@@ -65,14 +65,16 @@ It validates all fields, validates email format, checks CAPTCHA server-side, sen
 
 Messages are sent to `CONTACT_EMAIL`. The email subject is prefixed with `Portfolio Contact:` and includes the submitted form subject. The reply-to address is set to the sender email.
 
-## Set up CAPTCHA
+If you do not have a verified sending domain yet, keep `RESEND_FROM_EMAIL` empty so the app uses Resend's `onboarding@resend.dev` test sender. In that mode, set `CONTACT_EMAIL` to the email address verified on your Resend account. For production, verify a domain in Resend and set `RESEND_FROM_EMAIL` to a sender like `Abul Fazal Portfolio <contact@yourdomain.com>`.
 
-This project uses Cloudflare Turnstile-style CAPTCHA fields:
+## Set up hCaptcha
 
-- `NEXT_PUBLIC_CAPTCHA_SITE_KEY`
-- `CAPTCHA_SECRET_KEY`
+This project uses hCaptcha for spam protection:
 
-Create a Turnstile widget in Cloudflare, then add the site key and secret key to your environment variables.
+- `NEXT_PUBLIC_HCAPTCHA_SITE_KEY`
+- `HCAPTCHA_SECRET_KEY`
+
+Create a site in the hCaptcha dashboard, copy the site key and secret key, then add them to your environment variables.
 
 ## Environment variables
 
@@ -80,9 +82,10 @@ Create `.env.local` for local development:
 
 ```bash
 RESEND_API_KEY=
+RESEND_FROM_EMAIL=
 CONTACT_EMAIL=
-CAPTCHA_SECRET_KEY=
-NEXT_PUBLIC_CAPTCHA_SITE_KEY=
+HCAPTCHA_SECRET_KEY=
+NEXT_PUBLIC_HCAPTCHA_SITE_KEY=
 ```
 
 The same placeholder keys are also available in `.env.example`.
@@ -93,9 +96,10 @@ The same placeholder keys are also available in `.env.example`.
 2. Go to Settings > Environment Variables.
 3. Add:
    - `RESEND_API_KEY`
+   - `RESEND_FROM_EMAIL`
    - `CONTACT_EMAIL`
-   - `CAPTCHA_SECRET_KEY`
-   - `NEXT_PUBLIC_CAPTCHA_SITE_KEY`
+   - `HCAPTCHA_SECRET_KEY`
+   - `NEXT_PUBLIC_HCAPTCHA_SITE_KEY`
 4. Redeploy after saving.
 
 ## Deploy

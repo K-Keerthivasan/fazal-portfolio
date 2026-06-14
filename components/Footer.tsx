@@ -13,7 +13,7 @@ export default function Footer() {
                 F
               </span>
               {/* Change footer name/title here. */}
-              <h2 className="text-xl font-semibold text-white">Fazal</h2>
+              <h2 className="text-xl font-semibold text-white">Abul Fazal</h2>
             </div>
             <p className="mt-3 text-sm text-[#8b958e]">
               Architectural Technologist &amp; BIM Coordination Specialist
@@ -44,7 +44,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-12 border-t border-emerald-500/10 pt-6 text-sm text-[#6b756f]">
-          &copy; 2026 Fazal Portfolio. Designed with precision, built with purpose.
+          &copy; 2026 Abul Fazal Portfolio. Designed with precision, built with purpose.
         </div>
       </div>
     </footer>

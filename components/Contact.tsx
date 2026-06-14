@@ -14,7 +14,7 @@ import {
 
 declare global {
   interface Window {
-    turnstile?: {
+    hcaptcha?: {
       reset: () => void;
     };
   }
@@ -32,16 +32,16 @@ type Status = "idle" | "loading" | "success" | "error";
 export default function Contact() {
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
-  const siteKey = process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY;
+  const siteKey = process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY;
 
   useEffect(() => {
-    if (!siteKey || document.querySelector("script[data-turnstile]")) return;
+    if (!siteKey || document.querySelector("script[data-hcaptcha]")) return;
 
     const script = document.createElement("script");
-    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
+    script.src = "https://js.hcaptcha.com/1/api.js";
     script.async = true;
     script.defer = true;
-    script.dataset.turnstile = "true";
+    script.dataset.hcaptcha = "true";
     document.body.appendChild(script);
   }, [siteKey]);
 
@@ -70,7 +70,7 @@ export default function Contact() {
       setStatus("success");
       setMessage(result.message || "Message sent successfully.");
       form.reset();
-      window.turnstile?.reset();
+      window.hcaptcha?.reset();
     } catch (error) {
       setStatus("error");
       setMessage(error instanceof Error ? error.message : "Message could not be sent.");
@@ -82,7 +82,7 @@ export default function Contact() {
       <div className="green-ambience absolute inset-0 opacity-60" />
       <div className="section-shell relative">
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
-          <div>
+          <div data-reveal="left">
             <p className="eyebrow">Contact</p>
             <h2 className="mt-5 text-3xl font-semibold tracking-tight text-white sm:text-5xl">
               Let&apos;s talk about the next set of drawings.
@@ -144,7 +144,7 @@ export default function Contact() {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="card-surface rounded-xl border border-emerald-500/15 p-5 sm:p-8">
+          <form onSubmit={handleSubmit} data-reveal="right" className="card-surface rounded-xl border border-emerald-500/15 p-5 sm:p-8">
             <div className="grid gap-5 sm:grid-cols-2">
               <Field label="Name" name="name" autoComplete="name" />
               <Field label="Email" name="email" type="email" autoComplete="email" />
@@ -166,10 +166,10 @@ export default function Contact() {
 
             <div className="mt-5 min-h-[65px]">
               {siteKey ? (
-                <div className="cf-turnstile" data-sitekey={siteKey} data-theme="dark" />
+                <div className="h-captcha" data-sitekey={siteKey} data-theme="dark" />
               ) : (
                 <div className="rounded-lg border border-amber-400/25 bg-amber-500/10 p-4 text-sm text-amber-200">
-                  Add NEXT_PUBLIC_CAPTCHA_SITE_KEY to enable CAPTCHA.
+                  Add NEXT_PUBLIC_HCAPTCHA_SITE_KEY to enable hCaptcha.
                 </div>
               )}
             </div>
@@ -177,7 +177,7 @@ export default function Contact() {
             <button
               type="submit"
               disabled={status === "loading"}
-              className="soft-glow mt-6 w-full rounded-md bg-emerald-500 px-7 py-3.5 text-sm font-semibold text-[#04140c] transition-all hover:bg-emerald-400 disabled:cursor-not-allowed disabled:opacity-60"
+              className="btn-sheen soft-glow mt-6 w-full rounded-md bg-emerald-500 px-7 py-3.5 text-sm font-semibold text-[#04140c] transition-all hover:bg-emerald-400 disabled:cursor-not-allowed disabled:opacity-60"
             >
               {status === "loading" ? "Sending..." : "Send Message"}
             </button>

@@ -18,7 +18,7 @@ export default function Hero() {
           <p className="eyebrow mb-5">Architectural Technologist / BIM Specialist</p>
           <h1 className="text-[2.8rem] font-semibold leading-[1.03] tracking-tight text-white sm:text-6xl lg:text-7xl">
             Designing with Data,
-            <span className="mt-1 block bg-gradient-to-r from-emerald-300 to-emerald-500 bg-clip-text text-transparent">
+            <span className="gradient-flow mt-1 block bg-gradient-to-r from-emerald-300 via-teal-300 to-emerald-500 bg-clip-text text-transparent">
               Delivering with Precision.
             </span>
           </h1>
@@ -29,7 +29,7 @@ export default function Hero() {
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <a
               href="#projects"
-              className="soft-glow group inline-flex items-center justify-center gap-2 rounded-md bg-emerald-500 px-7 py-3.5 text-sm font-semibold text-[#04140c] transition-all hover:bg-emerald-400"
+              className="btn-sheen soft-glow group inline-flex items-center justify-center gap-2 rounded-md bg-emerald-500 px-7 py-3.5 text-sm font-semibold text-[#04140c] transition-all hover:bg-emerald-400 hover:-translate-y-0.5"
             >
               View Selected Work
               <span className="transition-transform group-hover:translate-x-1">&rarr;</span>

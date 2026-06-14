@@ -23,18 +23,18 @@ export default function About() {
     <section id="about" className="relative py-20 sm:py-32">
       <div className="section-shell">
         <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
-          <div className="lg:sticky lg:top-28">
+          <div className="lg:sticky lg:top-28" data-reveal="left">
             <p className="eyebrow">Profile</p>
             <h2 className="mt-5 text-3xl font-semibold tracking-tight text-white sm:text-5xl">
               Practical design thinking backed by technical control.
             </h2>
 
             <div className="card-surface mt-8 rounded-xl border border-emerald-500/15 p-4 sm:p-5">
-              {/* Replace this image path if Fazal's profile photo file changes. */}
+              {/* Replace this image path if Abul Fazal's profile photo file changes. */}
               <div className="relative aspect-[4/5] overflow-hidden rounded-lg border border-emerald-500/15 bg-[#0d1310]">
                 <Image
                   src="/Abul Fazal Profile.jpeg"
-                  alt="Fazal professional profile photo"
+                  alt="Abul Fazal professional profile photo"
                   fill
                   sizes="(min-width: 1024px) 400px, 100vw"
                   className="object-cover"
@@ -44,16 +44,16 @@ export default function About() {
               </div>
               <div className="mt-5">
                 {/* Change name and titles here. */}
-                <h3 className="text-2xl font-semibold text-white">Fazal</h3>
+                <h3 className="text-2xl font-semibold text-white">Abul Fazal</h3>
                 <p className="mt-1.5 text-emerald-400">Architectural Technologist</p>
                 <p className="mt-1 text-sm text-[#8b958e]">
-                  BIM Coordination &amp; Documentation Specialist
+                  BIM Specialist
                 </p>
               </div>
             </div>
           </div>
 
-          <div>
+          <div data-reveal="right">
             <div className="border-l-2 border-emerald-400/40 pl-5 sm:pl-6">
               <h3 className="text-xl font-semibold text-white">Professional Summary</h3>
               <p className="mt-5 leading-8 text-[#a8b2ab]">
@@ -73,10 +73,12 @@ export default function About() {
             <div className="mt-10 sm:mt-12">
               <h3 className="text-xl font-semibold text-white">Technical Strengths</h3>
               <div className="mt-6 grid gap-2.5 sm:grid-cols-2">
-                {competencies.map((item) => (
+                {competencies.map((item, i) => (
                   <div
                     key={item}
-                    className="card-surface group flex items-center gap-3 rounded-lg border border-emerald-500/10 px-4 py-3 text-sm text-[#cdd6d0] transition-colors hover:border-emerald-400/40 hover:text-white"
+                    data-reveal
+                    style={{ "--reveal-delay": `${(i % 2) * 70 + Math.floor(i / 2) * 50}ms` } as React.CSSProperties}
+                    className="card-surface group flex items-center gap-3 rounded-lg border border-emerald-500/10 px-4 py-3 text-sm text-[#cdd6d0] transition-all hover:-translate-y-0.5 hover:border-emerald-400/40 hover:text-white"
                   >
                     <span className="font-mono text-emerald-400 transition-transform group-hover:translate-x-0.5">
                       /
@@ -88,10 +90,12 @@ export default function About() {
             </div>
 
             <div className="mt-10 grid grid-cols-1 gap-3 min-[420px]:grid-cols-2 sm:mt-12 sm:grid-cols-4">
-              {stats.map(([value, label]) => (
+              {stats.map(([value, label], i) => (
                 <div
                   key={label}
-                  className="card-surface rounded-lg border border-emerald-500/15 p-5 transition-colors hover:border-emerald-400/40"
+                  data-reveal="zoom"
+                  style={{ "--reveal-delay": `${i * 80}ms` } as React.CSSProperties}
+                  className="card-surface rounded-lg border border-emerald-500/15 p-5 transition-all hover:-translate-y-0.5 hover:border-emerald-400/40"
                 >
                   <div className="text-3xl font-semibold tracking-tight text-emerald-400">{value}</div>
                   <div className="mt-2 font-mono text-[0.65rem] uppercase tracking-[0.14em] text-[#8b958e]">

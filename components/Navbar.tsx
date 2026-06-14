@@ -24,7 +24,7 @@ export default function Navbar() {
             F
           </span>
           {/* Change portfolio name/logo here. */}
-          <span className="text-base font-semibold tracking-tight text-white">Fazal</span>
+          <span className="text-base font-semibold tracking-tight text-white">Abul Fazal</span>
         </a>
 
         <div className="hidden items-center gap-1 md:flex">
@@ -48,7 +48,7 @@ export default function Navbar() {
             href="https://www.linkedin.com/in/abulfazal2001/"
             target="_blank"
             rel="noreferrer"
-            aria-label="Open Fazal's LinkedIn profile"
+            aria-label="Open Abul Fazal's LinkedIn profile"
             className="grid size-10 place-items-center rounded-md border border-emerald-400/20 text-emerald-200 transition-all hover:border-emerald-300/60 hover:bg-emerald-500/10 hover:shadow-[0_0_24px_rgba(34,197,94,0.16)]"
           >
             <LinkedInIcon className="size-4" />

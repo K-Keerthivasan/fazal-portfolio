@@ -9,8 +9,8 @@ type SendContactEmailInput = {
 };
 
 // The Resend API key is read server-side only and is never exposed to the client.
-// Change the verified "from" address below before going to production.
-const FROM_ADDRESS = "Fazal Portfolio <onboarding@resend.dev>";
+// Keep onboarding@resend.dev for limited testing, or set RESEND_FROM_EMAIL to a verified sender.
+const DEFAULT_FROM_ADDRESS = "Abul Fazal Portfolio <onboarding@resend.dev>";
 
 export async function sendContactEmail({
   to,
@@ -20,6 +20,7 @@ export async function sendContactEmail({
   message,
 }: SendContactEmailInput) {
   const apiKey = process.env.RESEND_API_KEY;
+  const from = process.env.RESEND_FROM_EMAIL || DEFAULT_FROM_ADDRESS;
 
   if (!apiKey) {
     throw new Error("Resend is not configured.");
@@ -28,7 +29,7 @@ export async function sendContactEmail({
   const resend = new Resend(apiKey);
 
   const { error } = await resend.emails.send({
-    from: FROM_ADDRESS,
+    from,
     to,
     replyTo: email,
     subject: `Portfolio Contact: ${subject}`,
